@@ -14,6 +14,14 @@ with open('file.pickle', 'rb') as f:
     data = pickle.load(f)
 print(*data, sep='\n')
 
+
+table = [
+    ['Название сериала', 'Жанр', 'Год выхода', 'Рейтинг'],
+    ['Игра престолов', 'Фэнтези', 2011, 9.3],
+    ['Во все тяжкие', 'Криминал', 2008, 9.5],
+    ['Чернобыль', 'Драма', 2019, 9.4],
+]
+
 with open('file.csv', mode='w', encoding='utf-8') as f:
     file_writer = csv.writer(f, delimiter = ',', lineterminator='\r')
     for r in table:
