@@ -1,5 +1,6 @@
 import pickle, csv, os
 from itertools import islice
+from datetime import datetime
 
 with open('file.pickle', 'wb') as f:
     
@@ -427,4 +428,78 @@ class MFT:
         return merged_table
 
 if __name__ == "__main__":
-    pass
+    print("Тесты для MFT:")
+
+    mft = MFT('csv')
+
+    print("\nЗагрузка CSV:")
+    try:
+        mft.load_csv_file('file')  
+        mft.print_table()
+    except Exception as e:
+        print(e)
+
+    print("\nСохранение CSV:")
+    try:
+        mft.save_csv_file('output', 2)
+        print("CSV сохранён.")
+    except Exception as e:
+        print(e)
+
+    mft_pickle = MFT('pickle')
+    print("\nЗагрузка Pickle:")
+    try:
+        mft_pickle.load_pickle_file('file')  
+        mft_pickle.print_table()
+    except Exception as e:
+        print(e)
+
+    print("\nСохранение Pickle:")
+    try:
+        mft_pickle.save_pickle_file('output_pickle', 2)
+        print("Pickle сохранён.")
+    except Exception as e:
+        print(e)
+
+    print("\nПолучение строк по номеру:")
+    rows = mft.get_rows_by_number(1, 2)
+    print(rows)
+
+    print("\nПолучение строк по индексу:")
+    rows_by_index = mft.get_rows_by_index('Cyberpunk 2077', 'Minecraft')
+    print(rows_by_index)
+
+    print("\nПолучение значений столбца:")
+    column_values = mft.get_values('Жанр')
+    print(column_values)
+
+    print("\nУстановка значений столбца:")
+    try:
+        mft.set_values(['Новый жанр'] * len(mft.rows), 'Жанр')
+        mft.print_table()
+    except Exception as e:
+        print(e)
+
+    print("\nПолучение типов столбцов:")
+    column_types = mft.get_column_types()
+    print(column_types)
+
+    print("\nСлияние таблиц:")
+    try:
+        mft2 = MFT('csv')
+        mft2.load_csv_file('file')  
+        merged_table = mft.concat(mft, mft2)
+        merged_table.print_table()
+    except Exception as e:
+        print(e)
+
+
+    print("\nРазделение таблицы:")
+    try:
+        table1, table2 = mft.split(2)
+        print("Первая часть:")
+        table1.print_table()
+        print("Вторая часть:")
+        table2.print_table()
+    except Exception as e:
+        print(e)
