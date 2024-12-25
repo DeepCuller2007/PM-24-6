@@ -354,6 +354,8 @@ class MFT:
         table1.rows = self.rows[:row_number]
         table2.rows = self.rows[row_number:]
         return table1, table2
+
+    
     def merge_tables(table1, table2, by_number=True, conflict_resolution='raise'):
         headers1, *rows1 = table1
         headers2, *rows2 = table2
