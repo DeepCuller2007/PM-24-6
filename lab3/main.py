@@ -84,8 +84,7 @@ class MFT:
             with open(f'{file_name}.pickle', 'rb') as f:
     
                 data = pickle.load(f)
-                if len(data) != 2 or not isinstance(data[0], list) or not isinstance(data[1], list):
-                    raise Exception("Некорректный формат данных в pickle файле")
+                
 
                 headers = tuple(data[0])  
                 list_headers.append(headers)
@@ -200,7 +199,7 @@ class MFT:
             for row in self.rows:
                 if len(row) > col_index:
                     values.append(row[col_index])
-            col_type = str  # Default type
+            col_type = str  
             if all(isinstance(val, bool) or str(val).lower() in ["true", "false"] for val in values if val != ""):
                 col_type = bool
             elif all(isinstance(val, int) or (str(val).isdigit() and val != "") for val in values):
@@ -226,7 +225,7 @@ class MFT:
         try:
             if isinstance(value, datetime):
                 return True
-            datetime.fromisoformat(value)  # Assuming ISO 8601 format
+            datetime.fromisoformat(value)  
             return True
         except (ValueError, TypeError):
             return False
